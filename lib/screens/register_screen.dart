@@ -82,7 +82,13 @@ class RegisterScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(20.0),
                   child: ElevatedButton(
                     style: style,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (c) => LoginScreen()),
+                      );
+                    },
                     child: const Text('Registar',
                         style: TextStyle(fontFamily: 'Roboto-Regular')),
                   ),
