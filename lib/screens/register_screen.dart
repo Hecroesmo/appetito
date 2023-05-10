@@ -1,11 +1,13 @@
-import 'package:appetito/screens/register_screen.dart';
+import 'package:appetito/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({Key? key}) : super(key: key);
+class RegisterScreen extends StatelessWidget {
+  RegisterScreen({Key? key}) : super(key: key);
 
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController rePasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +25,24 @@ class LoginScreen extends StatelessWidget {
               children: [
                 Container(
                     margin: const EdgeInsets.fromLTRB(0, 50.0, 0, 40.0),
-                    child: const Text('Entrar',
+                    child: const Text('Crie a sua Conta',
                         style: TextStyle(
                             color: Color(0xFF003366),
                             fontFamily: 'Roboto-Regular',
                             fontSize: 32.0,
                             fontWeight: FontWeight.bold))),
+                Container(
+                  margin: const EdgeInsets.only(bottom: 10.0),
+                  padding: const EdgeInsets.all(20.0),
+                  child: TextField(
+                    controller: nameController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Nome',
+                    ),
+                  ),
+                ),
+
                 Container(
                   margin: const EdgeInsets.only(bottom: 10.0),
                   padding: const EdgeInsets.all(20.0),
@@ -53,11 +67,23 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 Container(
+                  margin: const EdgeInsets.only(bottom: 10.0),
+                  padding: const EdgeInsets.all(20.0),
+                  child: TextField(
+                    controller: rePasswordController,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Confirmar Palavra-Passe',
+                    ),
+                  ),
+                ),
+                Container(
                   padding: const EdgeInsets.all(20.0),
                   child: ElevatedButton(
                     style: style,
                     onPressed: () {},
-                    child: const Text('Entrar',
+                    child: const Text('Registar',
                         style: TextStyle(fontFamily: 'Roboto-Regular')),
                   ),
                 ),
@@ -65,20 +91,19 @@ class LoginScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text('Não tem conta ainda?'),
+                    const Text('Já tem conta?'),
 
                     TextButton(
                         onPressed: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => RegisterScreen(),
+                              builder: (context) => LoginScreen(),
                             ),
                           );
                         },
                         child: const Text('clique aqui')),
                   ],
                 )
-
               ],
             ),
           ),
