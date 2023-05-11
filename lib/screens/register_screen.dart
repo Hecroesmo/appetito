@@ -42,7 +42,6 @@ class RegisterScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 Container(
                   margin: const EdgeInsets.only(bottom: 10.0),
                   padding: const EdgeInsets.all(20.0),
@@ -93,7 +92,6 @@ class RegisterScreen extends StatelessWidget {
                         style: TextStyle(fontFamily: 'Roboto-Regular')),
                   ),
                 ),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
