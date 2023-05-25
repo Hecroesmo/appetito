@@ -1,4 +1,5 @@
 import 'package:appetito/models/food_plate.dart';
+import 'package:appetito/screens/food_plate_details_screen.dart';
 import 'package:appetito/services/food_plate_service.dart';
 import 'package:flutter/material.dart';
 import 'package:appetito/global.dart';
@@ -24,12 +25,18 @@ class _MenuScreenState extends State<MenuScreen> {
         child: Scaffold(
           appBar: AppBar(
             elevation: 0.0,
-            leading: IconButton(
-                onPressed: () => {},
+            leading: ElevatedButton.icon(
+                style: playIconButtonStyle,
+                onPressed: () {
+
+                },
                 icon: const Icon(
-                  Icons.menu_rounded,
+                  Icons.menu,
                   color: blue,
-                )),
+                  size: 40,
+                ),
+                label: const Text(''),
+            ),
             title: const Text('Appetito',
                 style: TextStyle(
                     fontSize: 27.0,
@@ -44,7 +51,7 @@ class _MenuScreenState extends State<MenuScreen> {
           body: Column(
             children: [
               Container(
-                margin: const EdgeInsets.symmetric(vertical: 10.0),
+                margin: const EdgeInsets.symmetric(vertical: 15.0),
                 padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
                 height: 70.0,
                 child: ListView.builder(
@@ -64,7 +71,7 @@ class _MenuScreenState extends State<MenuScreen> {
                           children: [
                             Text(
                               weekdays[index],
-                              style: TextStyle(fontSize: 18.0,),
+                              style: const TextStyle(fontSize: 18.0,),
                             ),
                           ],
                         ),
@@ -83,8 +90,10 @@ class _MenuScreenState extends State<MenuScreen> {
                     fontSize: 25.0),
               ),
 
+              const SizedBox(height: 20.0,),
+
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                //padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 height: MediaQuery.of(context).size.height * 0.7,
                 child: GridView.builder(
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -92,8 +101,16 @@ class _MenuScreenState extends State<MenuScreen> {
                     ),
                     itemCount: dishes.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
+                      return TextButton(
+                        style: TextButton.styleFrom(
+                          padding: EdgeInsets.zero
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (c) => FoodPlateDetails(dishes[index]))
+                          );
+                        },
                         child: Card(
                           color: pink,
                           child: Padding(
