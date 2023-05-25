@@ -1,5 +1,6 @@
 import 'package:appetito/screens/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:appetito/global.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({Key? key}) : super(key: key);
@@ -11,10 +12,6 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ButtonStyle style = ElevatedButton.styleFrom(
-        textStyle: const TextStyle(fontSize: 20),
-        minimumSize: const Size(double.infinity, 45.0),
-        backgroundColor: const Color(0xFFF2994A));
 
     return MaterialApp(
       home: Scaffold(
@@ -27,7 +24,7 @@ class RegisterScreen extends StatelessWidget {
                     margin: const EdgeInsets.fromLTRB(0, 50.0, 0, 40.0),
                     child: const Text('Crie a sua Conta',
                         style: TextStyle(
-                            color: Color(0xFF003366),
+                            color: blue,
                             fontFamily: 'Roboto-Regular',
                             fontSize: 32.0,
                             fontWeight: FontWeight.bold))),
