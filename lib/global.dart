@@ -14,11 +14,9 @@ final ButtonStyle style = ElevatedButton.styleFrom(
 );
 
 final weekdaysButtonStyle = ElevatedButton.styleFrom(
-    textStyle: const TextStyle(fontSize: 20),
-    minimumSize: const Size(double.infinity, 45.0),
-    backgroundColor: orange,
+  backgroundColor: orange,
   shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(20.0)
-  )
+    borderRadius: BorderRadius.circular(20.0),
+  ),
 );
 

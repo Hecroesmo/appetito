@@ -23,6 +23,7 @@ class _MenuScreenState extends State<MenuScreen> {
       home: SafeArea(
         child: Scaffold(
           appBar: AppBar(
+            elevation: 0.0,
             leading: IconButton(
                 onPressed: () => {},
                 icon: const Icon(
@@ -56,12 +57,7 @@ class _MenuScreenState extends State<MenuScreen> {
                         onPressed: () {
                           // Button onPressed logic
                         },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: orange,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                        ),
+                        style: weekdaysButtonStyle,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -88,6 +84,7 @@ class _MenuScreenState extends State<MenuScreen> {
               ),
 
               Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 height: MediaQuery.of(context).size.height * 0.7,
                 child: GridView.builder(
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -108,13 +105,15 @@ class _MenuScreenState extends State<MenuScreen> {
                                   radius: 60.0,
                                 ),
                                 const SizedBox(height: 10.0,),
-                                Text(
-                                  dishes[index].name,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: blue,
-                                      fontFamily: 'Roboto',
-                                      fontSize: 15.0),
+                                Expanded(
+                                  child: Text(
+                                    dishes[index].name,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: blue,
+                                        fontFamily: 'Roboto',
+                                        fontSize: 15.0),
+                                  ),
                                 ),
                               ],
                             ),
