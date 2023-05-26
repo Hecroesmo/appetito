@@ -1,5 +1,6 @@
 import 'package:appetito/models/food_plate.dart';
 import 'package:appetito/screens/food_plate_details_screen.dart';
+import 'package:appetito/screens/reserva_screen.dart';
 import 'package:appetito/services/food_plate_service.dart';
 import 'package:flutter/material.dart';
 import 'package:appetito/global.dart';
@@ -11,9 +12,44 @@ class MenuScreen extends StatefulWidget {
   State<MenuScreen> createState() => _MenuScreenState();
 }
 
-class _MenuScreenState extends State<MenuScreen> {
+class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateMixin {
+
   final List<String> weekdays = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta',
     'Sexta', 'Sábado'];
+
+  bool _isMenuOpen = false;
+  late AnimationController _animationController;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 200),
+    );
+    _animation = CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
+    );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  void _toggleMenu() {
+    setState(() {
+      _isMenuOpen = !_isMenuOpen;
+      if (_isMenuOpen) {
+        _animationController.forward();
+      } else {
+        _animationController.reverse();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,18 +61,16 @@ class _MenuScreenState extends State<MenuScreen> {
         child: Scaffold(
           appBar: AppBar(
             elevation: 0.0,
-            leading: ElevatedButton.icon(
-                style: playIconButtonStyle,
-                onPressed: () {
-
-                },
-                icon: const Icon(
-                  Icons.menu,
-                  color: blue,
-                  size: 40,
-                ),
-                label: const Text(''),
-            ),
+            leading: IconButton(
+              icon: Icon(_isMenuOpen ? Icons.close : Icons.menu,
+                color: blue,
+                size: 40,
+              ),
+              onPressed: () {
+                setState(() {
+                  _toggleMenu();
+                });
+            }),
             title: const Text('Appetito',
                 style: TextStyle(
                     fontSize: 27.0,
@@ -44,11 +78,8 @@ class _MenuScreenState extends State<MenuScreen> {
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Roboto')),
             backgroundColor: const Color(0xffffffff),
-            // actions: [
-            //   IconButton(onPressed: () => {}, icon: const Icon(Icons.menu))
-            // ],
           ),
-          body: Column(
+          body: Stack(
             children: [
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 15.0),
@@ -81,18 +112,21 @@ class _MenuScreenState extends State<MenuScreen> {
                 ),
               ),
 
-              const Text(
-                'Menu',
-                style: TextStyle(
-                    color: blue,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Roboto',
-                    fontSize: 25.0),
+              const Positioned(
+                top: 100.0,
+                left: 10.0,
+                child: Text(
+                  'Menu',
+                  style: TextStyle(
+                      color: blue,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Roboto',
+                      fontSize: 25.0),
+                ),
               ),
 
-              const SizedBox(height: 20.0,),
-
               Container(
+                margin: const EdgeInsets.only(top: 150.0),
                 //padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 height: MediaQuery.of(context).size.height * 0.7,
                 child: GridView.builder(
@@ -103,7 +137,7 @@ class _MenuScreenState extends State<MenuScreen> {
                     itemBuilder: (BuildContext context, int index) {
                       return TextButton(
                         style: TextButton.styleFrom(
-                          padding: EdgeInsets.zero
+                            padding: EdgeInsets.zero
                         ),
                         onPressed: () {
                           Navigator.push(
@@ -139,7 +173,58 @@ class _MenuScreenState extends State<MenuScreen> {
                       );
                     }
                 ),
-              )
+              ),
+
+              _isMenuOpen ? Container(
+                padding: const EdgeInsets.all(15.0),
+                width: 220,
+                height: double.infinity,
+                color: orange,
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: [
+                    ListTile(
+                      title: const Text(
+                        'Reservas',
+                        style: TextStyle(
+                            fontSize: 20.0,
+                            fontFamily: 'Roboto',
+                            color: Colors.white
+                        ),),
+                      leading: const Icon(Icons.dining_sharp, color: blue, size: 32,),
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (c) => const ReserveScreen()));
+                      },
+                    ),
+                    ListTile(
+                      title: const Text(
+                        'Perfil',
+                        style: TextStyle(
+                            fontSize: 20.0,
+                            fontFamily: 'Roboto',
+                            color: Colors.white
+                        ),),
+                      leading: const Icon(Icons.account_box, color: blue, size: 32,),
+                      onTap: () {
+                        // Handle item 1 tap
+                      },
+                    ),
+                    ListTile(
+                      title: const Text(
+                        'Definições',
+                        style: TextStyle(
+                            fontSize: 20.0,
+                            fontFamily: 'Roboto',
+                            color: Colors.white
+                        ),),
+                      leading: const Icon(Icons.settings, color: blue, size: 32,),
+                      onTap: () {
+                        // Handle item 1 tap
+                      },
+                    ),
+                  ],
+                ),
+              ) : Container(),
             ],
           )
         ),
@@ -147,6 +232,10 @@ class _MenuScreenState extends State<MenuScreen> {
     );
   }
 }
+
+/*
+
+* */
 
 
 

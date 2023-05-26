@@ -13,7 +13,7 @@ class FoodPlateDetails extends StatefulWidget {
 }
 
 class _FoodPlateDetailsState extends State<FoodPlateDetails> {
-  int _currentValue = 3;
+  int _currentValue = 2;
 
   @override
   Widget build(BuildContext context) {
