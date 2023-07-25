@@ -1,6 +1,6 @@
 import 'package:appetito/global.dart';
 import 'package:appetito/screens/menu_screen.dart';
-import 'package:appetito/screens/register_screen.dart';
+import 'package:appetito/screens/register_screen_person.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -74,7 +74,7 @@ class LoginScreen extends StatelessWidget {
                         onPressed: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => RegisterScreen(),
+                              builder: (context) => const RegisterPersonScreen(),
                             ),
                           );
                         },
