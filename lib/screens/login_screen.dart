@@ -2,7 +2,10 @@ import 'package:appetito/global.dart';
 import 'package:appetito/models/login_request_model.dart';
 import 'package:appetito/screens/menu_screen.dart';
 import 'package:appetito/screens/register_screen_person.dart';
+import 'package:appetito/services/auth/login_service.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -10,8 +13,39 @@ class LoginScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  authenticate(LoginRequestModel requestModel) {
+  // bool validate() {
+  //   var email = emailController.value.text;
+  //   var password =
+  //   if (!email.contains('@') || !email.contains('.com')) {
+  //     return false;
+  //   }
+  //
+  //   if ()
+  // }
 
+  authenticate(BuildContext context) async {
+    LoginRequestModel model = LoginRequestModel(
+        emailController.value.text.trim(),
+        passwordController.value.text.trim()
+    );
+
+    bool isSaved = await LoginService().login(model);
+    if (kDebugMode) {
+      print('authenticate ------------ $isSaved');
+    }
+
+    if (isSaved) {
+      Fluttertoast.showToast(
+          msg: "Login Sucesso!",);
+
+      if (!context.mounted) return;
+
+      Navigator.push(context, MaterialPageRoute(builder: (context) => const MenuScreen()));
+    }
+    else {
+      Fluttertoast.showToast(
+        msg: "Email ou palavra inválido.",);
+    }
   }
 
   @override
@@ -58,12 +92,8 @@ class LoginScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(20.0),
                   child: ElevatedButton(
                     style: style,
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const MenuScreen(),
-                        ),
-                      );
+                    onPressed: () async {
+                      await authenticate(context);
                     },
                     child: const Text('Entrar',
                         style: TextStyle(fontFamily: 'Roboto-Regular')),

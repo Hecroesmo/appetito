@@ -1,6 +1,8 @@
 import 'package:appetito/models/food_plate.dart';
 import 'package:appetito/screens/food_plate_details_screen.dart';
+import 'package:appetito/screens/login_screen.dart';
 import 'package:appetito/screens/reserva_screen.dart';
+import 'package:appetito/services/auth/shared_service.dart';
 import 'package:appetito/services/food_plate_service.dart';
 import 'package:flutter/material.dart';
 import 'package:appetito/global.dart';
@@ -220,6 +222,19 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
                       leading: const Icon(Icons.settings, color: blue, size: 32,),
                       onTap: () {
                         // Handle item 1 tap
+                      },
+                    ),
+                    ListTile(
+                      title: const Text(
+                        'Sair',
+                        style: TextStyle(
+                            fontSize: 20.0,
+                            fontFamily: 'Roboto',
+                            color: Colors.white
+                        ),),
+                      leading: const Icon(Icons.settings, color: blue, size: 32,),
+                      onTap: () {
+                        SharedService.logout(context);
                       },
                     ),
                   ],

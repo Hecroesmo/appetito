@@ -2,6 +2,7 @@ import 'package:appetito/models/Person.dart';
 import 'package:appetito/screens/login_screen.dart';
 import 'package:appetito/screens/register_screen_account.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../global.dart';
 
@@ -22,6 +23,24 @@ class _RegisterPersonScreenState extends State<RegisterPersonScreen> {
     person.firstName = firstNameController.value.text.trim();
     person.lastName = lastNameController.value.text.trim();
     person.phoneNumber = phoneNumberController.value.text.trim();
+  }
+
+  bool validatePerson() {
+    String firstName = firstNameController.value.text;
+    String lastName = lastNameController.value.text;
+    String phoneNumber = phoneNumberController.value.text;
+
+    if (
+    firstName.isEmpty ||
+        lastName.isEmpty ||
+        phoneNumber.isEmpty ||
+        !phoneNumber.startsWith('9') ||
+        phoneNumber.length != 9
+    ) {
+      return false;
+    }
+
+    return true;
   }
 
   @override
@@ -52,17 +71,6 @@ class _RegisterPersonScreenState extends State<RegisterPersonScreen> {
           child: SafeArea(
             child: Column(
               children: [
-                // Container(
-                //     margin: const EdgeInsets.fromLTRB(0, 50.0, 0, 40.0),
-                //     child: const Padding(
-                //       padding: EdgeInsets.symmetric(horizontal: 10),
-                //       child: Text('UM POUCO SOBRE VOCÊ!',
-                //           style: TextStyle(
-                //               color: blue,
-                //               fontFamily: 'Roboto-Regular',
-                //               fontSize: 27.0,
-                //               fontWeight: FontWeight.bold)),
-                //     )),
                 Container(
                   margin: const EdgeInsets.only(bottom: 10.0),
                   padding: const EdgeInsets.all(20.0),
@@ -101,12 +109,18 @@ class _RegisterPersonScreenState extends State<RegisterPersonScreen> {
                   child: ElevatedButton(
                     style: style,
                     onPressed: () {
-                      setPersonData();
-                      Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (c) => RegisterAccountScreen(person)),
-                      );
+                      bool isValidPerson = validatePerson();
+
+                      if (isValidPerson) {
+                        setPersonData();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (c) => RegisterAccountScreen(person)),
+                        );
+                      }
+                      else {
+                        Fluttertoast.showToast(msg: 'Dados inválido!');
+                      }
                     },
                     child: const Text('Proximo',
                         style: TextStyle(fontFamily: 'Roboto-Regular')),

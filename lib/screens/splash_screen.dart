@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:appetito/global.dart';
 import 'package:appetito/screens/login_screen.dart';
+import 'package:appetito/screens/menu_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -43,8 +45,13 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
-  startTimer() {
+  startTimer() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     Timer(const Duration(seconds: 8), () {
+
+      if (prefs.getString('token') != null) {
+        Navigator.push(context, MaterialPageRoute(builder: (c) => const MenuScreen()));
+      }
       Navigator.push(context, MaterialPageRoute(builder: (c) => LoginScreen()));
     });
   }
