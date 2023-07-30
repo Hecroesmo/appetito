@@ -15,12 +15,17 @@ dependencies:
   numberpicker: ^2.1.2
   font_awesome_flutter: ^10.4.0
   http: ^0.13.6
+  shared_preferences: ^2.2.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^2.0.0
+
+linter:
+  rules:
+    - use_build_context_synchronously
 
 flutter:
 

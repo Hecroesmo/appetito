@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:appetito/models/login_request_model.dart';
+import 'package:appetito/models/login_response_model.dart';
+import 'package:appetito/services/auth/shared_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:appetito/config/endpoints.dart';
 
@@ -18,6 +20,9 @@ class LoginService {
         headers: requestHeaders, body: jsonEncode(loginModel.toJson()));
 
     if (response.statusCode == 200) {
+      //  Shared
+      LoginResponseModel loginRes = LoginResponseModel(response.body);
+      SharedService.setToken(loginRes);
       return true;
     } else {
       return false;

@@ -1,4 +1,5 @@
 import 'package:appetito/global.dart';
+import 'package:appetito/models/login_request_model.dart';
 import 'package:appetito/screens/menu_screen.dart';
 import 'package:appetito/screens/register_screen_person.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,10 @@ class LoginScreen extends StatelessWidget {
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  authenticate(LoginRequestModel requestModel) {
+
+  }
 
   @override
   Widget build(BuildContext context) {
