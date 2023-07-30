@@ -1,16 +1,15 @@
 import 'package:appetito/models/Person.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:appetito/config/endpoints.dart';
 
 class RegisterService {
-
-  final String baseUrl = 'http://10.0.2.2:8080';
 
   RegisterService();
 
   Future<Person> register(Person person) async {
     final response = await http.post(
-      Uri.parse('$baseUrl/auth/register'),
+      Uri.parse('$Endpoints./auth/register'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
