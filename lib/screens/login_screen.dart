@@ -2,6 +2,7 @@ import 'package:appetito/global.dart';
 import 'package:appetito/models/login_request_model.dart';
 import 'package:appetito/screens/menu_screen.dart';
 import 'package:appetito/screens/register_screen_person.dart';
+import 'package:appetito/screens/splash_screen.dart';
 import 'package:appetito/services/auth/login_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -30,9 +31,6 @@ class LoginScreen extends StatelessWidget {
     );
 
     bool isSaved = await LoginService().login(model);
-    if (kDebugMode) {
-      print('authenticate ------------ $isSaved');
-    }
 
     if (isSaved) {
       Fluttertoast.showToast(
@@ -40,7 +38,7 @@ class LoginScreen extends StatelessWidget {
 
       if (!context.mounted) return;
 
-      Navigator.push(context, MaterialPageRoute(builder: (context) => const MenuScreen()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => const SplashScreen()));
     }
     else {
       Fluttertoast.showToast(

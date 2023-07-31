@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:appetito/global.dart';
+import 'package:appetito/screens/admin_menu_screen.dart';
 import 'package:appetito/screens/login_screen.dart';
 import 'package:appetito/screens/menu_screen.dart';
 import 'package:flutter/material.dart';
@@ -49,10 +50,15 @@ class _SplashScreenState extends State<SplashScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     Timer(const Duration(seconds: 8), () {
 
-      if (prefs.getString('token') != null) {
+      if (prefs.getString('token') != null && prefs.getString('role') == 'USER') {
         Navigator.push(context, MaterialPageRoute(builder: (c) => const MenuScreen()));
       }
-      Navigator.push(context, MaterialPageRoute(builder: (c) => LoginScreen()));
+      else if (prefs.getString('token') != null && prefs.getString('role') == 'ADMIN') {
+        Navigator.push(context, MaterialPageRoute(builder: (c) => const MenuAdminScreen()));
+      }
+      else {
+        Navigator.push(context, MaterialPageRoute(builder: (c) => LoginScreen()));
+      }
     });
   }
 }

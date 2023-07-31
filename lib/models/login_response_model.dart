@@ -6,10 +6,14 @@ LoginResponseModel loginResponseModel(String str) =>
 class LoginResponseModel {
   late String token;
 
-  LoginResponseModel(this.token);
+  LoginResponseModel({
+    required this.token
+});
 
-  LoginResponseModel.fromJson(Map<String, dynamic> json) {
-    token = json['token'];
+  factory LoginResponseModel.fromJson(Map<String, dynamic> json) {
+    return LoginResponseModel(
+      token: json['token']
+    );
   }
 
   Map<String, dynamic> toJson() {
